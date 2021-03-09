@@ -6,7 +6,7 @@ namespace Data_Structures.BinaryTree
     {
         public Node Root { get; set; }
 
-        public bool Find(int value)
+        public bool Contains(int value)
         {
             var current = Root;
 
@@ -27,6 +27,21 @@ namespace Data_Structures.BinaryTree
             }
 
             return false;
+        }
+
+        public bool ContainsRecursive(int value)
+        {
+            return ContainsRecursive(Root, value);
+        }
+
+        private bool ContainsRecursive(Node root, int value)
+        {
+            if (root == null)
+            {
+                return false;
+            }
+
+            return root.Value == value || ContainsRecursive(root.LeftChild, value) || ContainsRecursive(root.RightChild, value);
         }
 
         public void Insert(int value)
@@ -118,6 +133,23 @@ namespace Data_Structures.BinaryTree
             Console.WriteLine(root.Value);
         }
 
+        public int GetSize()
+        {
+            return GetSize(Root);
+        }
+
+        private int GetSize(Node root)
+        {
+            if (root == null)
+            {
+                return 0;
+            }
+
+            return GetSize(root.LeftChild)
+                    + 1
+                    + GetSize(root.RightChild);
+        }
+
         public int GetHeight()
         {
             return GetHeight(Root);
@@ -154,6 +186,24 @@ namespace Data_Structures.BinaryTree
             var right = GetMinValue(root.RightChild);
 
             return Math.Min(Math.Min(left, right), root.Value);
+        }
+
+        public int GetMaxValue()
+        {
+            return GetMaxValue(Root);
+        }
+
+        private int GetMaxValue(Node root)
+        {
+            if (IsLeaf(root))
+            {
+                return root.Value;
+            }
+
+            var left = GetMaxValue(root.LeftChild);
+            var right = GetMaxValue(root.RightChild);
+
+            return Math.Max(Math.Max(left, right), root.Value);
         }
 
         private bool IsLeaf(Node node)
@@ -238,6 +288,63 @@ namespace Data_Structures.BinaryTree
             {
                 GetValueAtDistance(i);
             }
+        }
+
+        public int CountLeaves()
+        {
+            return CountLeaves(Root);
+        }
+
+        private int CountLeaves(Node root)
+        {
+            if (root == null)
+            {
+                return 0;
+            }
+
+            if (IsLeaf(root))
+            {
+                return 1;
+            }
+
+            return CountLeaves(root.LeftChild) + CountLeaves(root.RightChild);
+        }
+
+        public bool AreSiblings(int first, int second)
+        {
+            return AreSiblings(Root, first, second);
+        }
+
+        private bool AreSiblings(Node root, int first, int second)
+        {
+            if (root == null)
+            {
+                return false;
+            }
+
+            if (root.LeftChild != null && root.RightChild != null)
+            {
+                if (root.LeftChild.Value == first && root.RightChild.Value == second)
+                {
+                    return true;
+                }
+                else if ((root.LeftChild.Value == second && root.RightChild.Value == first))
+                {
+                    return true;
+                }
+            }
+
+            if (root.LeftChild != null)
+            {
+                return AreSiblings(root.LeftChild, first, second);
+            }
+
+            if (root.RightChild != null)
+            {
+                return AreSiblings(root.RightChild, first, second);
+            }
+
+            return false;
         }
     }
 }
