@@ -34,14 +34,14 @@ namespace Data_Structures.BinaryTree
             return ContainsRecursive(Root, value);
         }
 
-        private bool ContainsRecursive(Node root, int value)
+        private bool ContainsRecursive(Node node, int value)
         {
-            if (root == null)
+            if (node == null)
             {
                 return false;
             }
 
-            return root.Value == value || ContainsRecursive(root.LeftChild, value) || ContainsRecursive(root.RightChild, value);
+            return node.Value == value || ContainsRecursive(node.LeftChild, value) || ContainsRecursive(node.RightChild, value);
         }
 
         public void Insert(int value)
@@ -87,16 +87,16 @@ namespace Data_Structures.BinaryTree
             TraversePreOrder(Root);
         }
 
-        private void TraversePreOrder(Node root)
+        private void TraversePreOrder(Node node)
         {
-            if (root == null)
+            if (node == null)
             {
                 return;
             }
 
-            Console.WriteLine(root.Value);
-            TraversePreOrder(root.LeftChild);
-            TraversePreOrder(root.RightChild);
+            Console.WriteLine(node.Value);
+            TraversePreOrder(node.LeftChild);
+            TraversePreOrder(node.RightChild);
         }
 
         public void TraverseInOrder()
@@ -104,16 +104,16 @@ namespace Data_Structures.BinaryTree
             TraverseInOrder(Root);
         }
 
-        private void TraverseInOrder(Node root)
+        private void TraverseInOrder(Node node)
         {
-            if (root == null)
+            if (node == null)
             {
                 return;
             }
 
-            TraverseInOrder(root.LeftChild);
-            Console.WriteLine(root.Value);
-            TraverseInOrder(root.RightChild);
+            TraverseInOrder(node.LeftChild);
+            Console.WriteLine(node.Value);
+            TraverseInOrder(node.RightChild);
         }
 
         public void TraversePostOrder()
@@ -121,16 +121,16 @@ namespace Data_Structures.BinaryTree
             TraversePostOrder(Root);
         }
 
-        private void TraversePostOrder(Node root)
+        private void TraversePostOrder(Node node)
         {
-            if (root == null)
+            if (node == null)
             {
                 return;
             }
 
-            TraverseInOrder(root.LeftChild);
-            TraverseInOrder(root.RightChild);
-            Console.WriteLine(root.Value);
+            TraverseInOrder(node.LeftChild);
+            TraverseInOrder(node.RightChild);
+            Console.WriteLine(node.Value);
         }
 
         public int GetSize()
@@ -138,16 +138,16 @@ namespace Data_Structures.BinaryTree
             return GetSize(Root);
         }
 
-        private int GetSize(Node root)
+        private int GetSize(Node node)
         {
-            if (root == null)
+            if (node == null)
             {
                 return 0;
             }
 
-            return GetSize(root.LeftChild)
+            return GetSize(node.LeftChild)
                     + 1
-                    + GetSize(root.RightChild);
+                    + GetSize(node.RightChild);
         }
 
         public int GetHeight()
@@ -155,19 +155,19 @@ namespace Data_Structures.BinaryTree
             return GetHeight(Root);
         }
 
-        private int GetHeight(Node root)
+        private int GetHeight(Node node)
         {
-            if (root == null)
+            if (node == null)
             {
                 return -1;
             }
 
-            if (IsLeaf(root))
+            if (IsLeaf(node))
             {
                 return 0;
             }
 
-            return 1 + Math.Max(GetHeight(root.LeftChild), GetHeight(root.RightChild));
+            return 1 + Math.Max(GetHeight(node.LeftChild), GetHeight(node.RightChild));
         }
 
         public int GetMinValue()
@@ -175,17 +175,17 @@ namespace Data_Structures.BinaryTree
             return GetMinValue(Root);
         }
 
-        private int GetMinValue(Node root)
+        private int GetMinValue(Node node)
         {
-            if (IsLeaf(root))
+            if (IsLeaf(node))
             {
-                return root.Value;
+                return node.Value;
             }
 
-            var left = GetMinValue(root.LeftChild);
-            var right = GetMinValue(root.RightChild);
+            var left = GetMinValue(node.LeftChild);
+            var right = GetMinValue(node.RightChild);
 
-            return Math.Min(Math.Min(left, right), root.Value);
+            return Math.Min(Math.Min(left, right), node.Value);
         }
 
         public int GetMaxValue()
@@ -193,17 +193,17 @@ namespace Data_Structures.BinaryTree
             return GetMaxValue(Root);
         }
 
-        private int GetMaxValue(Node root)
+        private int GetMaxValue(Node node)
         {
-            if (IsLeaf(root))
+            if (IsLeaf(node))
             {
-                return root.Value;
+                return node.Value;
             }
 
-            var left = GetMaxValue(root.LeftChild);
-            var right = GetMaxValue(root.RightChild);
+            var left = GetMaxValue(node.LeftChild);
+            var right = GetMaxValue(node.RightChild);
 
-            return Math.Max(Math.Max(left, right), root.Value);
+            return Math.Max(Math.Max(left, right), node.Value);
         }
 
         private bool IsLeaf(Node node)
@@ -295,19 +295,19 @@ namespace Data_Structures.BinaryTree
             return CountLeaves(Root);
         }
 
-        private int CountLeaves(Node root)
+        private int CountLeaves(Node node)
         {
-            if (root == null)
+            if (node == null)
             {
                 return 0;
             }
 
-            if (IsLeaf(root))
+            if (IsLeaf(node))
             {
                 return 1;
             }
 
-            return CountLeaves(root.LeftChild) + CountLeaves(root.RightChild);
+            return CountLeaves(node.LeftChild) + CountLeaves(node.RightChild);
         }
 
         public bool AreSiblings(int first, int second)
@@ -315,33 +315,33 @@ namespace Data_Structures.BinaryTree
             return AreSiblings(Root, first, second);
         }
 
-        private bool AreSiblings(Node root, int first, int second)
+        private bool AreSiblings(Node node, int first, int second)
         {
-            if (root == null)
+            if (node == null)
             {
                 return false;
             }
 
-            if (root.LeftChild != null && root.RightChild != null)
+            if (node.LeftChild != null && node.RightChild != null)
             {
-                if (root.LeftChild.Value == first && root.RightChild.Value == second)
+                if (node.LeftChild.Value == first && node.RightChild.Value == second)
                 {
                     return true;
                 }
-                else if ((root.LeftChild.Value == second && root.RightChild.Value == first))
+                else if ((node.LeftChild.Value == second && node.RightChild.Value == first))
                 {
                     return true;
                 }
             }
 
-            if (root.LeftChild != null)
+            if (node.LeftChild != null)
             {
-                return AreSiblings(root.LeftChild, first, second);
+                return AreSiblings(node.LeftChild, first, second);
             }
 
-            if (root.RightChild != null)
+            if (node.RightChild != null)
             {
-                return AreSiblings(root.RightChild, first, second);
+                return AreSiblings(node.RightChild, first, second);
             }
 
             return false;
