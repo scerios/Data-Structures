@@ -1,4 +1,4 @@
-﻿namespace Data_Structures.BinaryTree
+﻿namespace Data_Structures.BinaryTrees
 {
     public class Node
     {

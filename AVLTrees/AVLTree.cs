@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Data_Structures.AVL
+namespace Data_Structures.AVLTrees
 {
     public class AVLTree
     {
