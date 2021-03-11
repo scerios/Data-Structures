@@ -14,7 +14,7 @@ namespace Data_Structures
             ll.AddLast(3);
             ll.AddLast(4);
             ll.AddLast(5);
-            Console.WriteLine(ll.GetKthFromTheEnd(6));
+            Console.WriteLine(ll.HasLoop());
         }
 
         private static void HeapSort()

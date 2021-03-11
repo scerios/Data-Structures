@@ -221,5 +221,83 @@ namespace Data_Structures.LinkedLists
 
             return current.Value;
         }
+
+        public int GetKthFromTheEndNoSize(int k)
+        {
+            if (IsEmpty())
+            {
+                throw new NullReferenceException();
+            }
+
+            var pointerA = First;
+            var pointerB = First;
+
+            for (int i = 0; i < k - 1; i++)
+            {
+                pointerB = pointerB.Next;
+                if (pointerB == null)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+            }
+
+            while (pointerB != Last)
+            {
+                pointerA = pointerA.Next;
+                pointerB = pointerB.Next;
+            }
+
+            return pointerA.Value;
+        }
+
+        public void PrintMiddle()
+        {
+            if (IsEmpty())
+            {
+                throw new NullReferenceException();
+            }
+
+            var pointerA = First;
+            var pointerB = First;
+
+            while (pointerB != Last && pointerB.Next != Last)
+            {
+                pointerA = pointerA.Next;
+                pointerB = pointerB.Next.Next;
+            }
+
+            if (pointerB == Last)
+            {
+                Console.WriteLine($"The middle number is: { pointerA.Value }.");
+            }
+            else
+            {
+                Console.WriteLine($"The middle numbers are: { pointerA.Value } and { pointerA.Next.Value }.");
+            }
+        }
+
+        public bool HasLoop()
+        {
+            if (IsEmpty())
+            {
+                throw new NullReferenceException();
+            }
+
+            var pointerA = First;
+            var pointerB = First;
+
+            while (pointerB != null && pointerB.Next != null)
+            {
+                pointerA = pointerA.Next;
+                pointerB = pointerB.Next.Next;
+
+                if (pointerA == pointerB)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
