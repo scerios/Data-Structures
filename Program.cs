@@ -1,4 +1,5 @@
-﻿using Data_Structures.Heaps;
+﻿using Data_Structures.HashTables;
+using Data_Structures.Heaps;
 using System;
 
 namespace Data_Structures
@@ -7,6 +8,11 @@ namespace Data_Structures
     {
         private static void Main(string[] args)
         {
+            var table = new HashTable(5);
+            table.Put(6, "A");
+            table.Put(8, "B");
+            table.Put(11, "C");
+            Console.WriteLine(table.Get(11));
         }
 
         private static void HeapSort()
