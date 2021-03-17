@@ -1,5 +1,4 @@
 ﻿using Data_Structures.Heaps;
-using Data_Structures.Stacks;
 using System;
 
 namespace Data_Structures
@@ -8,14 +7,6 @@ namespace Data_Structures
     {
         private static void Main(string[] args)
         {
-            var stack = new Stack(5);
-            stack.Push(1);
-            stack.Push(2);
-            stack.Push(3);
-            stack.Push(4);
-            stack.Push(5);
-            stack.Pop();
-            Console.WriteLine(stack);
         }
 
         private static void HeapSort()
