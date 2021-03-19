@@ -4,12 +4,12 @@ namespace Data_Structures.Heaps
 {
     public class Heap
     {
-        public int[] Items { get; set; }
+        private readonly int[] _items;
         private int _size;
 
         public Heap(int itemsCount)
         {
-            Items = new int[itemsCount];
+            _items = new int[itemsCount];
         }
 
         private int GetLeftChildIndex(int index)
@@ -24,22 +24,22 @@ namespace Data_Structures.Heaps
 
         private int GetLeftChild(int index)
         {
-            return Items[GetLeftChildIndex(index)];
+            return _items[GetLeftChildIndex(index)];
         }
 
         private int GetRightChild(int index)
         {
-            return Items[GetRightChildIndex(index)];
+            return _items[GetRightChildIndex(index)];
         }
 
         private bool IsGreaterThanLeftChild(int index)
         {
-            return Items[index] >= Items[GetLeftChildIndex(index)];
+            return _items[index] >= _items[GetLeftChildIndex(index)];
         }
 
         private bool IsGreaterThanRightChild(int index)
         {
-            return Items[index] >= Items[GetRightChildIndex(index)];
+            return _items[index] >= _items[GetRightChildIndex(index)];
         }
 
         private bool IsValidParent(int index)
@@ -75,9 +75,9 @@ namespace Data_Structures.Heaps
 
         private void Swap(int first, int second)
         {
-            var temp = Items[first];
-            Items[first] = Items[second];
-            Items[second] = temp;
+            var temp = _items[first];
+            _items[first] = _items[second];
+            _items[second] = temp;
         }
 
         private int Parent(int index)
@@ -89,7 +89,7 @@ namespace Data_Structures.Heaps
         {
             var index = _size - 1;
 
-            while (index > 0 && Items[index] > Items[Parent(index)])
+            while (index > 0 && _items[index] > _items[Parent(index)])
             {
                 Swap(index, Parent(index));
                 index = Parent(index);
@@ -125,7 +125,7 @@ namespace Data_Structures.Heaps
                 throw new IndexOutOfRangeException();
             }
 
-            Items[_size++] = value;
+            _items[_size++] = value;
 
             BubbleUp();
         }
@@ -137,8 +137,8 @@ namespace Data_Structures.Heaps
                 throw new IndexOutOfRangeException();
             }
 
-            var root = Items[0];
-            Items[0] = Items[--_size];
+            var root = _items[0];
+            _items[0] = _items[--_size];
 
             BubbleDown();
 
@@ -147,12 +147,87 @@ namespace Data_Structures.Heaps
 
         public bool IsFull()
         {
-            return _size == Items.Length;
+            return _size == _items.Length;
         }
 
         public bool IsEmpty()
         {
             return _size == 0;
+        }
+
+        public void HeapSort(int[] numbers)
+        {
+            var heap = new Heap(numbers.Length);
+
+            foreach (int number in numbers)
+            {
+                heap.Insert(number);
+            }
+
+            for (var i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = heap.Remove();
+                Console.WriteLine(numbers[i]);
+            }
+        }
+
+        public void Heapify(int[] numbers)
+        {
+            var lastParentIndex = numbers.Length / 2 - 1;
+            for (int i = lastParentIndex; i >= 0; i--)
+            {
+                Heapify(numbers, i);
+            }
+        }
+
+        private void Heapify(int[] numbers, int index)
+        {
+            var largerIndex = index;
+
+            var leftIndex = index * 2 + 1;
+
+            if (leftIndex < numbers.Length && numbers[leftIndex] > numbers[largerIndex])
+            {
+                largerIndex = leftIndex;
+            }
+
+            var rightIndex = index * 2 + 2;
+
+            if (rightIndex < numbers.Length && numbers[rightIndex] > numbers[largerIndex])
+            {
+                largerIndex = rightIndex;
+            }
+
+            if (index == largerIndex)
+            {
+                return;
+            }
+
+            Swap(numbers, index, largerIndex);
+
+            Heapify(numbers, largerIndex);
+        }
+
+        private void Swap(int[] numbers, int first, int second)
+        {
+            var temp = numbers[first];
+            numbers[first] = numbers[second];
+            numbers[second] = temp;
+        }
+
+        public int GetKthInLargest(int k)
+        {
+            if (k < 1 || k > _items.Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            for (int i = 0; i < k - 1; i++)
+            {
+                Remove();
+            }
+
+            return _items[0];
         }
     }
 }
