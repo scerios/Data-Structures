@@ -10,7 +10,7 @@ namespace Data_Structures
             var sorter = new Sorter();
 
             var numbers = new int[] { 85, 3, 26, 4, 11, 53, 7, 20, 12, 5, 36 };
-            sorter.Insertion(numbers);
+            sorter.Merge(numbers);
 
             foreach (var number in numbers)
             {

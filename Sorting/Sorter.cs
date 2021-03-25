@@ -92,6 +92,62 @@ namespace Data_Structures.Sorting
             }
         }
 
+        public void Merge(int[] numbers)
+        {
+            if (numbers.Length < 2)
+            {
+                return;
+            }
+
+            int middleIndex = numbers.Length / 2;
+            int[] left = new int[middleIndex];
+
+            for (int i = 0; i < middleIndex; i++)
+            {
+                left[i] = numbers[i];
+            }
+
+            int[] right = new int[numbers.Length - middleIndex];
+
+            for (int i = middleIndex; i < numbers.Length; i++)
+            {
+                right[i - middleIndex] = numbers[i];
+            }
+
+            Merge(left);
+            Merge(right);
+            Merge(left, right, numbers);
+        }
+
+        private void Merge(int[] left, int[] right, int[] result)
+        {
+            int i = 0;
+            int j = 0;
+            int k = 0;
+
+            while (i < left.Length && j < right.Length)
+            {
+                if (left[i] <= right[j])
+                {
+                    result[k++] = left[i++];
+                }
+                else
+                {
+                    result[k++] = right[j++];
+                }
+            }
+
+            while (i < left.Length)
+            {
+                result[k++] = left[i++];
+            }
+
+            while (j < right.Length)
+            {
+                result[k++] = right[j++];
+            }
+        }
+
         private int FindMinIndex(int[] numbers, int i)
         {
             var minIndex = i;
