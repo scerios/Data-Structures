@@ -76,6 +76,22 @@ namespace Data_Structures.Sorting
             //}
         }
 
+        public void Insertion(int[] numbers)
+        {
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                var current = numbers[i];
+                var leftIndex = i - 1;
+
+                while (leftIndex >= 0 && numbers[leftIndex] > current)
+                {
+                    numbers[leftIndex + 1] = numbers[leftIndex];
+                    leftIndex--;
+                }
+                numbers[leftIndex + 1] = current;
+            }
+        }
+
         private int FindMinIndex(int[] numbers, int i)
         {
             var minIndex = i;
