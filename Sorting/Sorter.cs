@@ -4,28 +4,90 @@ namespace Data_Structures.Sorting
 {
     public class Sorter
     {
-        public int[] Bubble(int[] numbers)
+        public void Bubble(int[] numbers)
         {
-            var index = 0;
-            var counter = 0;
+            bool isSorted;
 
-            while (numbers.Length - 1 - counter > 0)
+            for (int i = 0; i < numbers.Length; i++)
             {
-                if (numbers[index] > numbers[index + 1])
+                isSorted = true;
+                for (int j = 1; j < numbers.Length; j++)
                 {
-                    Swap(numbers, index, index + 1);
+                    if (numbers[j] < numbers[j - 1])
+                    {
+                        Swap(numbers, j, j - 1);
+                        isSorted = false;
+                    }
                 }
 
-                index++;
-
-                if (index == numbers.Length - 1 - counter)
+                if (isSorted)
                 {
-                    index = 0;
-                    counter++;
+                    return;
                 }
             }
 
-            return numbers;
+            // My solution
+            //var index = 0;
+            //var counter = 0;
+
+            //while (numbers.Length - 1 - counter > 0)
+            //{
+            //    if (numbers[index] > numbers[index + 1])
+            //    {
+            //        Swap(numbers, index, index + 1);
+            //    }
+
+            //    index++;
+
+            //    if (index == numbers.Length - 1 - counter)
+            //    {
+            //        index = 0;
+            //        counter++;
+            //    }
+            //}
+        }
+
+        public void Selection(int[] numbers)
+        {
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                var minIndex = FindMinIndex(numbers, i);
+
+                Swap(numbers, minIndex, i);
+            }
+
+            // My solution
+            //int smallestIndex = 0;
+            //int counter = 0;
+
+            //for (int i = 1; i < numbers.Length; i++)
+            //{
+            //    if (numbers[i] < numbers[smallestIndex])
+            //    {
+            //        smallestIndex = i;
+            //    }
+
+            //    if (i == numbers.Length - 1)
+            //    {
+            //        Swap(numbers, counter, smallestIndex);
+            //        i = counter++ + 1;
+            //        smallestIndex = counter;
+            //    }
+            //}
+        }
+
+        private int FindMinIndex(int[] numbers, int i)
+        {
+            var minIndex = i;
+
+            for (int j = i; j < numbers.Length; j++)
+            {
+                if (numbers[j] < numbers[minIndex])
+                {
+                    minIndex = j;
+                }
+            }
+            return minIndex;
         }
 
         private void Swap(int[] numbers, int i, int j)
