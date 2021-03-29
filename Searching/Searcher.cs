@@ -82,6 +82,21 @@ namespace Data_Structures.Searching
             return -1;
         }
 
+        public int Exponential(int[] numbers, int target)
+        {
+            var bound = 1;
+
+            while (bound < numbers.Length && numbers[bound] < target)
+            {
+                bound *= 2;
+            }
+
+            int left = bound / 2;
+            int right = Math.Min(bound, numbers.Length - 1);
+
+            return BinaryRec(numbers, target, left, right);
+        }
+
         private int BinaryRec(int[] numbers, int target, int left, int right)
         {
             if (right < left)
