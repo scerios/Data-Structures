@@ -124,6 +124,26 @@ namespace Data_Structures.Sorting
             Quick(numbers, 0, numbers.Length - 1);
         }
 
+        public void Counting(int[] numbers, int max)
+        {
+            var counter = new int[max + 1];
+
+            foreach (var number in numbers)
+            {
+                counter[number]++;
+            }
+
+            var k = 0;
+
+            for (int i = 0; i < counter.Length; i++)
+            {
+                for (int j = 0; j < counter[i]; j++)
+                {
+                    numbers[k++] = i;
+                }
+            }
+        }
+
         private void Quick(int[] numbers, int start, int end)
         {
             if (start >= end)

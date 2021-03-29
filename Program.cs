@@ -9,8 +9,8 @@ namespace Data_Structures
         {
             var sorter = new Sorter();
 
-            var numbers = new int[] { 15, 6, 3, 1, 22, 10, 13 };
-            sorter.Quick(numbers);
+            var numbers = new int[] { 2, 3, 5, 3, 4, 2, 5 };
+            sorter.Counting(numbers, 5);
 
             foreach (var number in numbers)
             {
