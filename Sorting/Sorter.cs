@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Data_Structures.Sorting
 {
@@ -142,6 +143,38 @@ namespace Data_Structures.Sorting
                     numbers[k++] = i;
                 }
             }
+        }
+
+        public void Bucket(int[] numbers, int numberOfBuckets)
+        {
+            var index = 0;
+
+            foreach (var bucket in CreateBuckets(numbers, numberOfBuckets))
+            {
+                bucket.Sort();
+
+                foreach (var number in bucket)
+                {
+                    numbers[index++] = number;
+                }
+            }
+        }
+
+        private List<List<int>> CreateBuckets(int[] numbers, int numberOfBuckets)
+        {
+            List<List<int>> buckets = new List<List<int>>();
+
+            for (int i = 0; i < numberOfBuckets; i++)
+            {
+                buckets.Add(new List<int>());
+            }
+
+            foreach (var number in numbers)
+            {
+                buckets[number / numberOfBuckets].Add(number);
+            }
+
+            return buckets;
         }
 
         private void Quick(int[] numbers, int start, int end)
