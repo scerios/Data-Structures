@@ -54,6 +54,34 @@ namespace Data_Structures.Searching
             return Ternary(numbers, target, 0, numbers.Length - 1);
         }
 
+        public int Jump(int[] numbers, int target)
+        {
+            var blockSize = (int)Math.Sqrt(numbers.Length);
+            var start = 0;
+            var next = blockSize;
+
+            while (start < numbers.Length && numbers[next - 1] < target)
+            {
+                start = next;
+                next += blockSize;
+
+                if (next > numbers.Length)
+                {
+                    next = numbers.Length;
+                }
+            }
+
+            for (int i = start; i < next; i++)
+            {
+                if (numbers[i] == target)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         private int BinaryRec(int[] numbers, int target, int left, int right)
         {
             if (right < left)
