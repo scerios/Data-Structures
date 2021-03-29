@@ -119,6 +119,40 @@ namespace Data_Structures.Sorting
             Merge(left, right, numbers);
         }
 
+        public void Quick(int[] numbers)
+        {
+            Quick(numbers, 0, numbers.Length - 1);
+        }
+
+        private void Quick(int[] numbers, int start, int end)
+        {
+            if (start >= end)
+            {
+                return;
+            }
+
+            var boundary = Partition(numbers, start, end);
+
+            Quick(numbers, start, boundary - 1);
+            Quick(numbers, boundary + 1, end);
+        }
+
+        private int Partition(int[] numbers, int start, int end)
+        {
+            int pivot = numbers[end];
+            int boundary = start - 1;
+
+            for (int i = start; i <= end; i++)
+            {
+                if (numbers[i] <= pivot)
+                {
+                    Swap(numbers, i, ++boundary);
+                }
+            }
+
+            return boundary;
+        }
+
         private void Merge(int[] left, int[] right, int[] result)
         {
             int i = 0;
