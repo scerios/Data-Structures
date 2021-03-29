@@ -9,8 +9,8 @@ namespace Data_Structures
         {
             var searcher = new Searcher();
 
-            var numbers = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            Console.WriteLine(searcher.Binary(numbers, 4));
+            var numbers = new int[] { 1, 3, 5, 6, 7, 8 };
+            Console.WriteLine(searcher.Ternary(numbers, 4));
         }
     }
 }

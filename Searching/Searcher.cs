@@ -49,6 +49,11 @@ namespace Data_Structures.Searching
             return BinaryRec(numbers, target, 0, numbers.Length - 1);
         }
 
+        public int Ternary(int[] numbers, int target)
+        {
+            return Ternary(numbers, target, 0, numbers.Length - 1);
+        }
+
         private int BinaryRec(int[] numbers, int target, int left, int right)
         {
             if (right < left)
@@ -69,6 +74,40 @@ namespace Data_Structures.Searching
             }
 
             return BinaryRec(numbers, target, middle + 1, right);
+        }
+
+        private int Ternary(int[] numbers, int target, int left, int right)
+        {
+            if (left > right)
+            {
+                return -1;
+            }
+
+            var partitionSize = (right - left) / 3;
+            var midOne = left + partitionSize;
+            var midTwo = right - partitionSize;
+
+            if (numbers[midOne] == target)
+            {
+                return midOne;
+            }
+
+            if (numbers[midTwo] == target)
+            {
+                return midTwo;
+            }
+
+            if (target < numbers[midOne])
+            {
+                return Ternary(numbers, target, left, midOne - 1);
+            }
+
+            if (target > numbers[midTwo])
+            {
+                return Ternary(numbers, target, midTwo + 1, right);
+            }
+
+            return Ternary(numbers, target, midOne + 1, midTwo - 1);
         }
     }
 }
