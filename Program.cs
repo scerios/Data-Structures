@@ -1,4 +1,4 @@
-﻿using Data_Structures.Sorting;
+﻿using Data_Structures.Searching;
 using System;
 
 namespace Data_Structures
@@ -7,15 +7,10 @@ namespace Data_Structures
     {
         private static void Main(string[] args)
         {
-            var sorter = new Sorter();
+            var searcher = new Searcher();
 
-            var numbers = new int[] { 7, 2, 4, 5, 1, 3 };
-            sorter.Bucket(numbers, 3);
-
-            foreach (var number in numbers)
-            {
-                Console.WriteLine(number);
-            }
+            var numbers = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            Console.WriteLine(searcher.Binary(numbers, 4));
         }
     }
 }
